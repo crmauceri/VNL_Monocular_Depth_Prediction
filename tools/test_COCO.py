@@ -48,12 +48,13 @@ if __name__ == '__main__':
     model.cuda()
     model = torch.nn.DataParallel(model)
 
-    with open(test_args.dataroot + "/SUNRGBD/SUNRGBD_paths.csv", "r") as csv_f:
-        csv_reader = csv.DictReader(csv_f)
+    out_dir = os.path.join(test_args.dataroot, 'VNL_Monocular')
+    if not os.path.exists(out_dir):
+        os.mkdir(out_dir)
 
-        for i, row in tqdm(enumerate(csv_reader)):
+    with open(test_args.dataroot + "path_list.txt", "r") as f:
+        for path in f:
             with torch.no_grad():
-                path = row['rgbpath']
                 img = cv2.imread(os.path.join(test_args.dataroot, path))
                 img_resize = cv2.resize(img, (int(img.shape[1]), int(img.shape[0])), interpolation=cv2.INTER_LINEAR)
                 img_torch = scale_torch(img_resize, 255)
@@ -65,15 +66,12 @@ if __name__ == '__main__':
                 #pred_depth = (pred_depth / pred_depth.max() * 60000).astype(np.uint16)  # scale 60000 for visualization
                 pred_depth_scaled = (pred_depth * 60000).astype(np.uint16)
 
-                out_path = os.path.join(test_args.dataroot, row['rgbpath'].replace('image', 'VNL_Monocular'))
+                out_path = os.path.join(test_args.dataroot, 'VNL_Monocular', path)
                 out_path = os.path.splitext(out_path)[0] + ".png"
-                out_dir = os.path.dirname(out_path)
-                if not os.path.exists(out_dir):
-                    os.mkdir(out_dir)
 
                 if np.any(pred_depth > 1.0):
                     print("Possible clipping on: " + outpath)
-
+                    
                 cv2.imwrite(out_path, pred_depth_scaled)
                 #depth = Image.fromarray(pred_depth).convert("L")
                 #with open(out_path, 'wb') as fp:
