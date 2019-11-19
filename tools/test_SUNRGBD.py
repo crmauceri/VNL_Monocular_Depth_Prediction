@@ -3,6 +3,7 @@ import cv2
 import torch
 import numpy as np
 from tqdm import tqdm
+from PIL import Image
 from lib.utils.net_tools import load_ckpt
 from lib.utils.logging import setup_logging
 import torchvision.transforms as transforms
@@ -61,10 +62,14 @@ if __name__ == '__main__':
                 _, pred_depth_softmax= model.module.depth_model(img_torch)
                 pred_depth = bins_to_depth(pred_depth_softmax)
                 pred_depth = pred_depth.cpu().numpy().squeeze()
-                #pred_depth_scale = (pred_depth / pred_depth.max() * 60000).astype(np.uint16)  # scale 60000 for visualization
+                #pred_depth = (pred_depth / pred_depth.max() * 60000).astype(np.uint16)  # scale 60000 for visualization
+                pred_depth = (pred_depth * 60000).astype(np.uint16)
 
-                out_path = os.join(test_args.dataroot, row['depthpath'].replace('depth', 'VNL_Monocular'))
+                out_path = os.path.join(test_args.dataroot, row['depthpath'].replace('depth', 'VNL_Monocular'))
                 out_dir = os.path.dirname(out_path)
                 if not os.path.exists(out_dir):
                     os.mkdir(out_dir)
-                cv2.imwrite(os.path.join(out_path), pred_depth)
+                cv2.imwrite(out_path, pred_depth)
+                #depth = Image.fromarray(pred_depth).convert("L")
+                #with open(out_path, 'wb') as fp:
+                #    depth.save(fp, "JPEG")
