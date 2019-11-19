@@ -56,23 +56,26 @@ if __name__ == '__main__':
         for path in f:
             with torch.no_grad():
                 img = cv2.imread(os.path.join(test_args.dataroot, path))
-                img_resize = cv2.resize(img, (int(img.shape[1]), int(img.shape[0])), interpolation=cv2.INTER_LINEAR)
-                img_torch = scale_torch(img_resize, 255)
-                img_torch = img_torch[None, :, :, :].cuda()
+                if img is None:
+                    print(os.path.join(test_args.dataroot, path))
+                else:
+                    img_resize = cv2.resize(img, (int(img.shape[1]), int(img.shape[0])), interpolation=cv2.INTER_LINEAR)
+                    img_torch = scale_torch(img_resize, 255)
+                    img_torch = img_torch[None, :, :, :].cuda()
 
-                _, pred_depth_softmax= model.module.depth_model(img_torch)
-                pred_depth = bins_to_depth(pred_depth_softmax)
-                pred_depth = pred_depth.cpu().numpy().squeeze()
-                #pred_depth = (pred_depth / pred_depth.max() * 60000).astype(np.uint16)  # scale 60000 for visualization
-                pred_depth_scaled = (pred_depth * 60000).astype(np.uint16)
+                    _, pred_depth_softmax= model.module.depth_model(img_torch)
+                    pred_depth = bins_to_depth(pred_depth_softmax)
+                    pred_depth = pred_depth.cpu().numpy().squeeze()
+                    #pred_depth = (pred_depth / pred_depth.max() * 60000).astype(np.uint16)  # scale 60000 for visualization
+                    pred_depth_scaled = (pred_depth * 60000).astype(np.uint16)
 
-                out_path = os.path.join(test_args.dataroot, 'VNL_Monocular', path)
-                out_path = os.path.splitext(out_path)[0] + ".png"
+                    out_path = os.path.join(test_args.dataroot, 'VNL_Monocular', path)
+                    out_path = os.path.splitext(out_path)[0] + ".png"
 
-                if np.any(pred_depth > 1.0):
-                    print("Possible clipping on: " + outpath)
+                    if np.any(pred_depth > 1.0):
+                        print("Possible clipping on: " + outpath)
                     
-                cv2.imwrite(out_path, pred_depth_scaled)
-                #depth = Image.fromarray(pred_depth).convert("L")
-                #with open(out_path, 'wb') as fp:
-                #    depth.save(fp, "JPEG")
+                    cv2.imwrite(out_path, pred_depth_scaled)
+                    #depth = Image.fromarray(pred_depth).convert("L")
+                    #with open(out_path, 'wb') as fp:
+                    #    depth.save(fp, "JPEG")
