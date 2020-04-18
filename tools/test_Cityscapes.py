@@ -64,7 +64,8 @@ if __name__ == '__main__':
     file_path = test_args.dataroot + "path_list.txt"
     with open(file_path, "r") as file:
         for path in tqdm(file, total=get_num_lines(file_path)):
-            dir, file = os.path.split(path)
+            img_path = path.strip()
+            dir, file = os.path.split(img_path)
             out_dir = dir.replace('leftImg8bit', 'VNL_Monocular')
             out_path = os.path.join(out_dir, file.replace('leftImg8bit', 'VNL_Monocular'))
 
@@ -73,7 +74,6 @@ if __name__ == '__main__':
 
             if not os.path.exists(out_path):
                 with torch.no_grad():
-                    img_path = path.strip()
                     img = cv2.imread(img_path, cv2.IMREAD_COLOR)
                     if img is None:
                         print("Error loading: " + img_path)
