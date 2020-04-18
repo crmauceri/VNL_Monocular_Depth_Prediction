@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import numpy as np
 from vnl.lib.models import lateral_net as lateral_net
-from vnl.lib.utils.net_tools import get_func
 from vnl.lib.models.image_transfer import bins_to_depth, kitti_merge_imgs
 from vnl.lib.core.config import cfg
 
@@ -48,8 +47,7 @@ class MetricDepthModel(nn.Module):
 class DepthModel(nn.Module):
     def __init__(self):
         super(DepthModel, self).__init__()
-        bottom_up_model = 'lateral_net.lateral_' + cfg.MODEL.ENCODER
-        self.encoder_modules = get_func(bottom_up_model)()
+        self.encoder_modules = lateral_net.bottom_up(cfg.MODEL.ENCODER)
         self.decoder_modules = lateral_net.fcn_topdown(cfg.MODEL.ENCODER)
 
     def forward(self, x):

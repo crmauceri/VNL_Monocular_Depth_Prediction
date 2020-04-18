@@ -8,6 +8,17 @@ import vnl.lib.models.MobileNetV2 as MobileNetV2
 from torch.nn import functional as F
 import math
 
+def bottom_up(model_name):
+    if model_name=='resnext50_32x4d_body_stride16':
+        return lateral_resnext50_32x4d_body_stride16
+    elif  model_name=='resnext101_32x4d_body_stride16':
+        return lateral_resnext101_32x4d_body_stride16
+    elif  model_name=='mobilenetv2_body_stride8':
+        return lateral_mobilenetv2_body_stride8
+    else:
+        raise ValueError('Not implemented for {}'.format(model_name))
+
+
 def lateral_resnext50_32x4d_body_stride16():
     return lateral(ResNeXt.ResNeXt50_32x4d_body_stride16)
 
