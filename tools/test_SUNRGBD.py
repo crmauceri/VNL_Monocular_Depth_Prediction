@@ -4,14 +4,14 @@ import torch
 import numpy as np
 from tqdm import tqdm
 from PIL import Image
-from lib.utils.net_tools import load_ckpt
-from lib.utils.logging import setup_logging
+from vnl.lib.utils.net_tools import load_ckpt
+from vnl.lib.utils.logging import setup_logging
 import torchvision.transforms as transforms
 from tools.parse_arg_test import TestOptions
 from data.load_dataset import CustomerDataLoader
-from lib.models.metric_depth_model import MetricDepthModel
-from lib.core.config import cfg, merge_cfg_from_file
-from lib.models.image_transfer import bins_to_depth
+from vnl.lib.models.metric_depth_model import MetricDepthModel
+from vnl.lib.core.config import cfg, merge_cfg_from_file
+from vnl.lib.models.image_transfer import bins_to_depth
 
 logger = setup_logging(__name__)
 
