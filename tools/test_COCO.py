@@ -8,7 +8,7 @@ from vnl.lib.utils.net_tools import load_ckpt
 from vnl.lib.utils.logging import setup_logging
 import torchvision.transforms as transforms
 from tools.parse_arg_test import TestOptions
-from data.load_dataset import CustomerDataLoader
+from vnl.data.load_dataset import CustomerDataLoader
 from vnl.lib.models.metric_depth_model import MetricDepthModel
 from vnl.lib.core.config import cfg, merge_cfg_from_file
 from vnl.lib.models.image_transfer import bins_to_depth

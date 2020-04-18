@@ -7,7 +7,7 @@ from vnl.lib.core.config import cfg
 from vnl.lib.utils.net_tools import load_ckpt
 from tools.parse_arg_test import TestOptions
 from vnl.lib.core.config import merge_cfg_from_file
-from data.load_dataset import CustomerDataLoader
+from vnl.data.load_dataset import CustomerDataLoader
 from vnl.lib.utils.evaluate_depth_error import evaluate_err
 from vnl.lib.models.metric_depth_model import MetricDepthModel
 from vnl.lib.utils.logging import setup_logging, SmoothedValue
