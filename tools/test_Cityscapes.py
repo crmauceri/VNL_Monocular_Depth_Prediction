@@ -73,7 +73,7 @@ if __name__ == '__main__':
             out_path = os.path.join(out_dir, file.replace('leftImg8bit', 'VNL_Monocular'))
 
             if not os.path.exists(out_dir):
-                os.mkdirs(out_dir)
+                os.makedirs(out_dir)
 
             if not os.path.exists(out_path):
                 with torch.no_grad():
