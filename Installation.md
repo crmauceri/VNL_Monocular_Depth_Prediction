@@ -24,4 +24,7 @@ conda install matplotlib dill pyyaml opencv scipy
 # we give the instructions for CUDA 9.0
 conda install -c pytorch torchvision=0.2.1 cudatoolkit=9.0
 
+# Install module
+pip install -e .
+
 ```

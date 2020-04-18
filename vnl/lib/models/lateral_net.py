@@ -1,10 +1,10 @@
 import torch
 import torch.nn as nn
-from lib.core.config import cfg
-import lib.models.ResNeXt as ResNeXt
-import lib.utils.resnext_weights_helper as resnext_utils
-import lib.utils.mobilenetv2_weight_helper as mobilenet_utils
-import lib.models.MobileNetV2 as MobileNetV2
+from vnl.lib.core.config import cfg
+import vnl.lib.models.ResNeXt as ResNeXt
+import vnl.lib.utils.resnext_weights_helper as resnext_utils
+import vnl.lib.utils.mobilenetv2_weight_helper as mobilenet_utils
+import vnl.lib.models.MobileNetV2 as MobileNetV2
 from torch.nn import functional as F
 import math
 

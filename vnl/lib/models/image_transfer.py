@@ -1,6 +1,6 @@
 import torch
 import cv2
-from lib.core.config import cfg
+from vnl.lib.core.config import cfg
 import numpy as np
 import torch.nn.functional as F
 

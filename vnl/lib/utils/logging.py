@@ -4,7 +4,7 @@ from collections import deque
 import logging
 import numpy as np
 import sys
-from lib.core.config import cfg
+from vnl.lib.core.config import cfg
 
 
 def log_stats(stats, args):

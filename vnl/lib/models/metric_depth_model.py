@@ -1,10 +1,10 @@
 import torch
 import torch.nn as nn
 import numpy as np
-from . import lateral_net as lateral_net
-from lib.utils.net_tools import get_func
-from lib.models.image_transfer import bins_to_depth, kitti_merge_imgs
-from lib.core.config import cfg
+from vnl.lib.models import lateral_net as lateral_net
+from vnl.lib.utils.net_tools import get_func
+from vnl.lib.models.image_transfer import bins_to_depth, kitti_merge_imgs
+from vnl.lib.core.config import cfg
 
 
 class MetricDepthModel(nn.Module):

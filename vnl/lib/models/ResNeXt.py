@@ -1,6 +1,6 @@
 from collections import OrderedDict
 import torch.nn as nn
-from lib.core.config import cfg
+from vnl.lib.core.config import cfg
 
 # ---------------------------------------------------------------------------- #
 # Bits for specific architectures (ResNeXt50, ResNeXt101, ...)

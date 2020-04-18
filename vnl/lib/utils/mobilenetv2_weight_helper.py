@@ -1,6 +1,6 @@
 import os
 import torch
-from lib.core.config import cfg
+from vnl.lib.core.config import cfg
 import numpy as np
 import logging
 logger = logging.getLogger(__name__)

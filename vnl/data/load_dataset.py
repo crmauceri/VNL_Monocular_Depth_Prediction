@@ -1,6 +1,6 @@
 import torch.utils.data
 import importlib
-from lib.utils.logging import setup_logging
+from vnl.lib.utils.logging import setup_logging
 logger = setup_logging(__name__)
 
 class CustomerDataLoader():

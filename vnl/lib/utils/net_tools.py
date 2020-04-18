@@ -3,8 +3,8 @@ import dill
 import torch
 import importlib
 import torch.nn as nn
-from lib.core.config import cfg
-from lib.utils.logging import setup_logging
+from vnl.lib.core.config import cfg
+from vnl.lib.utils.logging import setup_logging
 
 logger = setup_logging(__name__)
 

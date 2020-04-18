@@ -8,12 +8,12 @@ from __future__ import unicode_literals
 
 from collections import defaultdict, OrderedDict
 import datetime
-from lib.core.config import cfg
+from vnl.lib.core.config import cfg
 
 
-from lib.utils.logging import log_stats
-from lib.utils.logging import SmoothedValue
-from lib.utils.timer import Timer
+from vnl.lib.utils.logging import log_stats
+from vnl.lib.utils.logging import SmoothedValue
+from vnl.lib.utils.timer import Timer
 
 
 class TrainingStats(object):

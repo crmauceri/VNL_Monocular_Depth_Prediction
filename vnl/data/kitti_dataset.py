@@ -3,9 +3,9 @@ import json
 import torch
 import os.path
 import numpy as np
-from lib.core.config import cfg
+from vnl.lib.core.config import cfg
 import torchvision.transforms as transforms
-from lib.utils.logging import setup_logging
+from vnl.lib.utils.logging import setup_logging
 
 logger = setup_logging(__name__)
 
