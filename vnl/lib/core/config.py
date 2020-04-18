@@ -121,7 +121,7 @@ def print_configs(cfg):
 def merge_cfg_from_file(train_args):
     """Load a yaml config file and merge it into the global config."""
     cfg_filename = train_args.cfg_file
-    cfg_file = os.path.join(__C.ROOT_DIR, cfg_filename + '.yaml')
+    cfg_file = os.path.join(cfg_filename + '.yaml')
     with open(cfg_file, 'r') as f:
         yaml_cfg = AttrDict(yaml.load(f))
     _merge_a_into_b(yaml_cfg, __C)
