@@ -80,7 +80,7 @@ if __name__ == '__main__':
                     if img is None:
                         print("Error loading: " + img_path)
                     else:
-                        img_resize = img.resize((int(img.shape[1]), int(img.shape[0])), resample=Image.BILINEAR)
+                        img_resize = img.copy()
                         img_torch = scale_torch(img_resize, 255)
                         img_torch = img_torch[None, :, :, :].cuda()
 
