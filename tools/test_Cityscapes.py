@@ -84,8 +84,8 @@ if __name__ == '__main__':
                         img_torch = scale_torch(img_resize, 255)
                         img_torch = img_torch[None, :, :, :].cuda()
 
-                        _, pred_depth_softmax= model.module.depth_model(img_torch)
-                        pred_depth = bins_to_depth(pred_depth_softmax)
+                        out = model.module.inference_kitti(data)
+                        pred_depth = np.squeeze(out['b_fake'])
                         pred_depth = pred_depth.cpu().numpy().squeeze()
                         #pred_depth = (pred_depth / pred_depth.max() * 60000).astype(np.uint16)  # scale 60000 for visualization
 
