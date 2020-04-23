@@ -13,12 +13,14 @@
 ```bash
 # Firstly, your conda is setup properly with the right environment for that
 
-conda create --n VNL python=3.6
+conda create --name VNL python=3.6
 conda activate VNL
 
 
 # basic packages
-conda install matplotlib dill pyyaml opencv scipy tqdm pypng
+conda install matplotlib dill pyyaml opencv scipy tqdm 
+
+conda install pypng -c conda-forge
 
 # follow PyTorch installation in https://pytorch.org/get-started/locally/
 # we give the instructions for CUDA 9.0
