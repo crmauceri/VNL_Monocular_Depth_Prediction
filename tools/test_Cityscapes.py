@@ -74,27 +74,27 @@ if __name__ == '__main__':
             if not os.path.exists(out_dir):
                 os.makedirs(out_dir)
 
-            if not os.path.exists(out_path):
-                with torch.no_grad():
-                    img = Image.open(img_path)
-                    if img is None:
-                        print("Error loading: " + img_path)
-                    else:
-                        img_resize = img.copy()
-                        img_torch = scale_torch(img_resize, 255)
-                        img_torch = img_torch[None, :, :, :].cuda()
+            # if not os.path.exists(out_path):
+            with torch.no_grad():
+                img = Image.open(img_path)
+                if img is None:
+                    print("Error loading: " + img_path)
+                else:
+                    img_resize = img.copy()
+                    img_torch = scale_torch(img_resize, 255)
+                    img_torch = img_torch[None, :, :, :].cuda()
 
-                        _, pred_depth_softmax= model.module.depth_model(img_torch)
-                        pred_depth = bins_to_depth(pred_depth_softmax)
+                    _, pred_depth_softmax= model.module.depth_model(img_torch)
+                    pred_depth = bins_to_depth(pred_depth_softmax)
 
-                        # Un-normalize using factor from vnl/data/kitti_dataset.py
-                        pred_depth = 80 * pred_depth.cpu().numpy().squeeze()
+                    # Un-normalize using factor from vnl/data/kitti_dataset.py
+                    pred_depth = 80 * pred_depth.cpu().numpy().squeeze()
 
-                        # Convert to uint16 for storage
-                        pred_depth_scaled = (pred_depth*256).astype('uint16')
+                    # Convert to uint16 for storage
+                    pred_depth_scaled = (pred_depth*256).astype('uint16')
 
-                        # Write out as uint16 png
-                        with open(out_path, 'wb') as f:
-                            writer = png.Writer(width=pred_depth.shape[1], height=pred_depth.shape[0], bitdepth=16, greyscale=True)
-                            z = pred_depth_scaled.tolist()
-                            writer.write(f, z)
+                    # Write out as uint16 png
+                    with open(out_path, 'wb') as f:
+                        writer = png.Writer(width=pred_depth.shape[1], height=pred_depth.shape[0], bitdepth=16, greyscale=True)
+                        z = pred_depth_scaled.tolist()
+                        writer.write(f, z)
