@@ -89,12 +89,16 @@ if __name__ == '__main__':
                         pred_depth = bins_to_depth(pred_depth_softmax)
                         pred_depth = pred_depth.cpu().numpy().squeeze()
                         #pred_depth = (pred_depth / pred_depth.max() * 60000).astype(np.uint16)  # scale 60000 for visualization
-                        pred_depth_scaled = (pred_depth * 60000).astype(np.uint16)
+                        pred_depth_scaled = (pred_depth * 256).astype(np.uint16)
 
-                        if np.any(pred_depth > 1.0):
-                            print("Possible clipping on: " + out_path)
+                        print(pred_depth.max())
 
-                        cv2.imwrite(out_path, pred_depth_scaled)
+                        # with open(out_path, 'wb') as f:
+                        #     writer = png.Writer(width=pred_depth.shape[1], height=pred_depth.shape[0], bitdepth=16, greyscale=True)
+                        #     z = pred_depth_scaled.tolist()
+                        #     writer.write(f, z)
+
+                        # cv2.imwrite(out_path, pred_depth_scaled)
                         #depth = Image.fromarray(pred_depth).convert("L")
                         #with open(out_path, 'wb') as fp:
                         #    depth.save(fp, "JPEG")
