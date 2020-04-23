@@ -64,6 +64,8 @@ if __name__ == '__main__':
     file_path = test_args.dataroot + "path_list.txt"
     with open(file_path, "r") as file:
         for path in tqdm(file, total=get_num_lines(file_path)):
+            img_path = path.strip()
+
             out_path = os.path.join(test_args.dataroot, 'VNL_Monocular', os.path.split(path)[1])
             out_path = os.path.splitext(out_path)[0] + ".png"
 
