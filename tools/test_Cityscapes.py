@@ -84,16 +84,17 @@ if __name__ == '__main__':
                         img_torch = scale_torch(img_resize, 255)
                         img_torch = img_torch[None, :, :, :].cuda()
 
-                        out = model.module.inference_kitti(data)
-                        pred_depth = np.squeeze(out['b_fake'])
+                        _, pred_depth_softmax= model.module.depth_model(img_torch)
+                        pred_depth = bins_to_depth(pred_depth_softmax)
                         pred_depth = pred_depth.cpu().numpy().squeeze()
                         #pred_depth = (pred_depth / pred_depth.max() * 60000).astype(np.uint16)  # scale 60000 for visualization
 
                         # Un-normalize using factor from vnl/data/kitti_dataset.py
-                        pred_depth_scaled = (pred_depth * 256 * 80).astype(np.uint16)
+                        pred_depth_scaled = (pred_depth * 80)
 
                         print(pred_depth.mean())
                         print(pred_depth_scaled.mean())
+                        print(pred_depth_scaled.astype('uint8'.mean()))
 
                         # with open(out_path, 'wb') as f:
                         #     writer = png.Writer(width=pred_depth.shape[1], height=pred_depth.shape[0], bitdepth=16, greyscale=True)
