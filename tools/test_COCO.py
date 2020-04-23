@@ -71,10 +71,8 @@ if __name__ == '__main__':
 
             # if not os.path.exists(out_path):
             with torch.no_grad():
-                img = Image.open(img_path)
-                if img is None:
-                    print("Error loading: " + img_path)
-                else:
+                try:
+                    img = Image.open(img_path)
                     img_resize = img.copy()
                     img_torch = scale_torch(img_resize, 255)
                     img_torch = img_torch[None, :, :, :].cuda()
@@ -94,3 +92,8 @@ if __name__ == '__main__':
                                             greyscale=True)
                         z = pred_depth_scaled.tolist()
                         writer.write(f, z)
+
+                except ValueError as e:
+                    print("Error with: " + img_path)
+                        
+
