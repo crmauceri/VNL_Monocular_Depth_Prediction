@@ -1,5 +1,4 @@
 import os, csv
-import cv2
 import torch
 import numpy as np
 from tqdm import tqdm
@@ -77,11 +76,11 @@ if __name__ == '__main__':
 
             if not os.path.exists(out_path):
                 with torch.no_grad():
-                    img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+                    img = Image.open(img_path)
                     if img is None:
                         print("Error loading: " + img_path)
                     else:
-                        img_resize = cv2.resize(img, (int(img.shape[1]), int(img.shape[0])), interpolation=cv2.INTER_LINEAR)
+                        img_resize = img.resize((int(img.shape[1]), int(img.shape[0])), resample=Image.BILINEAR)
                         img_torch = scale_torch(img_resize, 255)
                         img_torch = img_torch[None, :, :, :].cuda()
 
