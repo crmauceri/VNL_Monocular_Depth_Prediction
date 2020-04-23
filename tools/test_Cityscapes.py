@@ -86,22 +86,15 @@ if __name__ == '__main__':
 
                         _, pred_depth_softmax= model.module.depth_model(img_torch)
                         pred_depth = bins_to_depth(pred_depth_softmax)
-                        pred_depth = pred_depth.cpu().numpy().squeeze()
-                        #pred_depth = (pred_depth / pred_depth.max() * 60000).astype(np.uint16)  # scale 60000 for visualization
 
                         # Un-normalize using factor from vnl/data/kitti_dataset.py
-                        pred_depth_scaled = (pred_depth * 80)
+                        pred_depth = 80 * pred_depth.cpu().numpy().squeeze()
 
-                        print(pred_depth.mean())
-                        print(pred_depth_scaled.mean())
-                        print((pred_depth_scaled*256).astype('uint16').mean() / 256.0)
+                        # Convert to uint16 for storage
+                        pred_depth_scaled = (pred_depth*256).astype('uint16')
 
-                        # with open(out_path, 'wb') as f:
-                        #     writer = png.Writer(width=pred_depth.shape[1], height=pred_depth.shape[0], bitdepth=16, greyscale=True)
-                        #     z = pred_depth_scaled.tolist()
-                        #     writer.write(f, z)
-
-                        # cv2.imwrite(out_path, pred_depth_scaled)
-                        #depth = Image.fromarray(pred_depth).convert("L")
-                        #with open(out_path, 'wb') as fp:
-                        #    depth.save(fp, "JPEG")
+                        # Write out as uint16 png
+                        with open(out_path, 'wb') as f:
+                            writer = png.Writer(width=pred_depth.shape[1], height=pred_depth.shape[0], bitdepth=16, greyscale=True)
+                            z = pred_depth_scaled.tolist()
+                            writer.write(f, z)
