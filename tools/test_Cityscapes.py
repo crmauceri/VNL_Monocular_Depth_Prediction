@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
                         print(pred_depth.mean())
                         print(pred_depth_scaled.mean())
-                        print(pred_depth_scaled.astype('uint8'.mean()))
+                        print(pred_depth_scaled.astype('uint8').mean())
 
                         # with open(out_path, 'wb') as f:
                         #     writer = png.Writer(width=pred_depth.shape[1], height=pred_depth.shape[0], bitdepth=16, greyscale=True)
