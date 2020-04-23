@@ -95,5 +95,5 @@ if __name__ == '__main__':
 
                 except ValueError as e:
                     print("Error with: " + img_path)
-                        
+
 
