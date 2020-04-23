@@ -18,7 +18,7 @@ conda activate VNL
 
 
 # basic packages
-conda install matplotlib dill pyyaml opencv scipy tqdm
+conda install matplotlib dill pyyaml opencv scipy tqdm pypng
 
 # follow PyTorch installation in https://pytorch.org/get-started/locally/
 # we give the instructions for CUDA 9.0
